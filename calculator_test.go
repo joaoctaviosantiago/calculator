@@ -2,6 +2,7 @@ package calculator_test
 
 import (
 	"calculator"
+	"math"
 	"testing"
 )
 
@@ -82,6 +83,7 @@ func TestDivide(t *testing.T) {
 		{a: 10, b: 2, want: 5},
 		{a: 2, b: 2, want: 1},
 		{a: -1, b: -1, want: 1},
+		{a: 1, b: 3, want: 0.333333}, // comparison fixed with the "closeEnough" func
 	}
 
 	for _, tc := range testCases {
@@ -91,11 +93,17 @@ func TestDivide(t *testing.T) {
 			t.Fatalf("want no error for valid input, got %v", err)
 		}
 
-		if tc.want != got {
+		if !closeEnough(tc.want, got, 0.001) {
 			t.Errorf("Multiply(%f, %f): want %f, got %f", tc.a, tc.b, tc.want, got)
 		}
-
 	}
+}
+
+// gets two values, a and b, and compares
+// the difference between them with a tolerance
+// to make sure they're close enough to be considered equals
+func closeEnough(a, b, tolerance float64) bool {
+    return math.Abs(a-b) <= tolerance
 }
 
 func TestDivideInvalid(t *testing.T) {
