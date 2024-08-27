@@ -153,7 +153,7 @@ func TestSqrtInvalid(t *testing.T) {
 
 // gets two values, a and b, and compares
 // the difference between them with a tolerance
-// to make sure they're close enough to be considered equals
+// to make sure they're close enough to be considered as equals
 func closeEnough(a, b, tolerance float64) bool {
 	return math.Abs(a-b) <= tolerance
 }
