@@ -38,9 +38,9 @@ func Divide(a, b float64) (float64, error) {
 // SquareRoot takes a number "a" and returns either
 // its squareroot or an error if "a" is negative
 func Sqrt(a float64) (float64, error) {
-	if a < 0{
+	if a < 0 {
 		return 0, errors.New("taking the square root of a negative number is not a valid operation")
 	}
-	
+
 	return math.Sqrt(a), nil
 }

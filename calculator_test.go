@@ -67,7 +67,7 @@ func TestMultiply(t *testing.T) {
 
 	for _, tc := range testCases {
 		got := calculator.Multiply(tc.a, tc.b)
-		
+
 		if tc.want != got {
 			t.Errorf("Multiply(%f, %f): want %f, got %f", tc.a, tc.b, tc.want, got)
 		}
