@@ -102,13 +102,6 @@ func TestDivide(t *testing.T) {
 	}
 }
 
-// gets two values, a and b, and compares
-// the difference between them with a tolerance
-// to make sure they're close enough to be considered equals
-func closeEnough(a, b, tolerance float64) bool {
-	return math.Abs(a-b) <= tolerance
-}
-
 func TestDivideInvalid(t *testing.T) {
 	t.Parallel()
 
@@ -156,4 +149,11 @@ func TestSqrtInvalid(t *testing.T) {
 	if err == nil {
 		t.Errorf("Sqrt(-1): want error for invalid input, got nil")
 	}
+}
+
+// gets two values, a and b, and compares
+// the difference between them with a tolerance
+// to make sure they're close enough to be considered equals
+func closeEnough(a, b, tolerance float64) bool {
+	return math.Abs(a-b) <= tolerance
 }
