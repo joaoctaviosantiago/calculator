@@ -1,7 +1,10 @@
 // Package calculator does simple calculations.
 package calculator
 
-import "errors"
+import (
+	"errors"
+	"math"
+)
 
 // Add takes two numbers and returns the result of adding
 // them together.
@@ -30,4 +33,14 @@ func Divide(a, b float64) (float64, error) {
 	}
 
 	return a / b, nil
+}
+
+// SquareRoot takes a number "a" and returns either
+// its squareroot or an error if "a" is negative
+func Sqrt(a float64) (float64, error) {
+	if a < 0{
+		return 0, errors.New("taking the square root of a negative number is not a valid operation")
+	}
+	
+	return math.Sqrt(a), nil
 }

@@ -22,6 +22,7 @@ func TestAdd(t *testing.T) {
 
 	for _, tc := range testCases {
 		got := calculator.Add(tc.a, tc.b)
+
 		if tc.want != got {
 			t.Errorf("Add(%f, %f): want %f, got %f", tc.a, tc.b, tc.want, got)
 		}
@@ -43,6 +44,7 @@ func TestSubtract(t *testing.T) {
 
 	for _, tc := range testCases {
 		got := calculator.Subtract(tc.a, tc.b)
+
 		if tc.want != got {
 			t.Errorf("Subtract(%f, %f): want %f, got %f", tc.a, tc.b, tc.want, got)
 		}
@@ -65,6 +67,7 @@ func TestMultiply(t *testing.T) {
 
 	for _, tc := range testCases {
 		got := calculator.Multiply(tc.a, tc.b)
+		
 		if tc.want != got {
 			t.Errorf("Multiply(%f, %f): want %f, got %f", tc.a, tc.b, tc.want, got)
 		}
@@ -103,7 +106,7 @@ func TestDivide(t *testing.T) {
 // the difference between them with a tolerance
 // to make sure they're close enough to be considered equals
 func closeEnough(a, b, tolerance float64) bool {
-    return math.Abs(a-b) <= tolerance
+	return math.Abs(a-b) <= tolerance
 }
 
 func TestDivideInvalid(t *testing.T) {
@@ -112,6 +115,45 @@ func TestDivideInvalid(t *testing.T) {
 	_, err := calculator.Divide(1, 0)
 
 	if err == nil {
-		t.Errorf("want error for invalid input, got nil")
+		t.Errorf("Divide(1, 0): want error for invalid input, got nil")
+	}
+}
+
+func TestSqrt(t *testing.T) {
+	t.Parallel()
+
+	type testCase struct {
+		a    float64
+		want float64
+	}
+
+	testCases := []testCase{
+		{a: 4, want: 2},
+		{a: 1, want: 1},
+		{a: 25, want: 5},
+		{a: 7, want: 2.645},
+		{a: 1.4, want: 1.2},
+	}
+
+	for _, tc := range testCases {
+		got, err := calculator.Sqrt(tc.a)
+
+		if err != nil {
+			t.Fatalf("want no error for valid input, got %v", err)
+		}
+
+		if !closeEnough(tc.want, got, 0.1) {
+			t.Errorf("squareRoot(%f): want %f, got %f", tc.a, tc.want, got)
+		}
+	}
+}
+
+func TestSqrtInvalid(t *testing.T) {
+	t.Parallel()
+
+	_, err := calculator.Sqrt(-1)
+
+	if err == nil {
+		t.Errorf("Sqrt(-1): want error for invalid input, got nil")
 	}
 }
